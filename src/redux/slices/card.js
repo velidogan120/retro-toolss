@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   comments: [],
   actionItems: [],
+  totalVotes: 0,
 };
 
 const cardSlice = createSlice({
@@ -17,9 +18,10 @@ const cardSlice = createSlice({
       state.comments[index].text = text;
     },
     voteComment: (state, action) => {
-      const index = action.payload;
-      if (state.comments[index].votes < 5) {
+      const { index, column } = action.payload;
+      if (state.totalVotes < 5 && state.comments[index].column === column) {
         state.comments[index].votes += 1;
+        state.totalVotes += 1;
       }
     },
     addActionItem: (state, action) => {

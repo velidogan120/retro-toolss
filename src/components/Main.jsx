@@ -1,29 +1,40 @@
-"use client"
-import React from 'react'
-import { store } from '../redux/store'
-import { Provider } from 'react-redux'
-import Task from './Task'
-import { Col, Row } from 'antd'
+'use client';
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import Brainstorm from '../components/Brainstorm';
+import GroupVote from '../components/GrupVote';
+import ActionItems from '../components/ActionItems';
+import Results from '../components/Results';
+import { Button } from 'antd';
+
+const socket = io('http://localhost:4001');
 
 const Main = () => {
-  return (
-    <Provider store={store}>
-        <Row gutter={[2, 2]}>
-          <Col xs={24} sm={12} md={8} lg={6} >
-            <Task />
-          </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Task />
-          </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Task />
-          </Col>
-          <Col xs={24} sm={12} md={8} lg={6}>
-            <Task />
-          </Col>
-        </Row>
-    </Provider>
-  )
-}
+  const [step, setStep] = useState(1);
 
-export default Main
+  useEffect(() => {
+    socket.on('commentAdded', (data) => {
+      console.log('Comment added:', data);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+
+  return (
+    <div>
+      {step === 1 && <Brainstorm socket={socket} />}
+      {step === 2 && <GroupVote socket={socket} />}
+      {step === 3 && <ActionItems />}
+      {step === 4 && <Results />}
+      {step < 4 && <Button onClick={nextStep}>Next Step</Button>}
+    </div>
+  );
+};
+
+export default Main;

@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { Button, Skeleton, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addComment, updateComment, voteComment, addActionItem } from '../redux/slices/card';
+import { addComment, updateComment, voteComment, addActionItem, resetVotes } from '../redux/slices/card';
 import jsPDF from 'jspdf';
+import ActionItems from './ActionItems';
 
 const socket = io('http://localhost:4001');
 
@@ -14,15 +15,23 @@ const Main = () => {
     workedWell: '',
     couldImprove: '',
     askAbout: '',
-    actionItems: '',
   });
   const reduxComments = useSelector(state => state.cards.comments);
-  const actionItems = useSelector(state => state.cards.actionItems);
+  const actionItems = useSelector(state => state.cards.actionItems); // Eklenen satır
+  const totalVotesUsed = useSelector(state => state.cards.totalVotesUsed);
   const dispatch = useDispatch();
 
   useEffect(() => {
     socket.on('commentAdded', (data) => {
       dispatch(addComment(data));
+    });
+
+    socket.on('voteComment', (data) => {
+      dispatch(voteComment(data));
+    });
+
+    socket.on('resetVotes', () => {
+      dispatch(resetVotes());
     });
   }, [socket, dispatch]);
 
@@ -33,14 +42,17 @@ const Main = () => {
   };
 
   const handleVote = (index, column) => {
-    dispatch(voteComment({ index, column }));
-    socket.emit('voteComment', { index, column });
-  };
-
-  const handleAddActionItem = () => {
-    const actionItem = { text: comments.actionItems, column: 'actionItems' };
-    dispatch(addActionItem(actionItem));
-    setComments(prevState => ({ ...prevState, actionItems: '' }));
+    if (totalVotesUsed < 5) {
+      const comment = reduxComments.find(c => c.column === column && c.index === index);
+      if (comment) {
+        dispatch(voteComment({ index, column }));
+        socket.emit('voteComment', { index, column });
+      } else {
+        console.error(`Comment with index ${index} not found in column ${column}`);
+      }
+    } else {
+      alert('You have used all your votes.');
+    }
   };
 
   const nextStep = () => {
@@ -52,13 +64,18 @@ const Main = () => {
     doc.text("Retrospective Results", 10, 10);
     doc.text("Comments:", 10, 20);
     reduxComments.forEach((comment, index) => {
-      doc.text(`${index + 1}. ${comment.text} (Votes: ${comment.votes})`, 10, 30 + index * 10);
+      doc.text(`${index + 1}. ${comment.text} (Votes: ${comment.votes || 0})`, 10, 30 + index * 10);
     });
     doc.text("Action Items:", 10, 30 + reduxComments.length * 10);
-    actionItems.forEach((item, index) => {
+    actionItems.forEach((item, index) => { // Eklenen satır
       doc.text(`${index + 1}. ${item.text}`, 10, 40 + reduxComments.length * 10 + index * 10);
     });
     doc.save("results.pdf");
+  };
+
+  const resetVotes = () => {
+    dispatch(resetVotes());
+    socket.emit('resetVotes');
   };
 
   return (
@@ -97,19 +114,13 @@ const Main = () => {
           handleVote={handleVote}
           column="askAbout"
         />
-        <Column 
-          title="We need to do..." 
-          comments={reduxComments.filter(c => c.column === 'actionItems')}
-          isEditable={step === 3}
-          isVisible={step === 3}
-          comment={comments.actionItems}
-          setComment={(text) => setComments(prevState => ({ ...prevState, actionItems: text }))}
-          handleAddComment={handleAddActionItem}
-          column="actionItems"
-        />
+        {step === 3 && (
+          <ActionItems />
+        )}
       </div>
       {step < 4 && <Button onClick={nextStep}>Next Step</Button>}
       {step === 4 && <Button onClick={exportPDF}>Export as PDF</Button>}
+      {step === 4 && <Button onClick={resetVotes}>Reset Votes</Button>}
     </div>
   );
 };
@@ -129,12 +140,12 @@ const Column = ({ title, comments, isEditable, isVisible, comment, setComment, h
         </>
       )}
       <div>
-        {comments.map((comment, index) => (
+        {comments.map((c) => (
           <Comment 
-            key={index}
-            comment={comment}
+            key={c.index} // Ensure unique key, assuming `index` is unique
+            comment={c}
             isVisible={isVisible}
-            handleVote={() => handleVote(index, column)}
+            handleVote={() => handleVote(c.index, column)}
           />
         ))}
       </div>
@@ -143,13 +154,17 @@ const Column = ({ title, comments, isEditable, isVisible, comment, setComment, h
 };
 
 const Comment = ({ comment, isVisible, handleVote }) => {
+  if (!comment) {
+    return <Skeleton active />;
+  }
+  
   return (
     <div>
       {isVisible ? (
         <>
           <span>{comment.text}</span>
-          {comment.column !== 'actionItems' && <Button onClick={handleVote}>Vote</Button>}
-          <span>{comment.votes}</span>
+          <Button onClick={handleVote}>Vote</Button>
+          <span>{comment.votes || 0}</span>
         </>
       ) : (
         <Skeleton active />

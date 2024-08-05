@@ -10,7 +10,8 @@ const ActionItems = () => {
   const dispatch = useDispatch();
 
   const handleAddAction = () => {
-    dispatch(addActionItem(action));
+    const actionItem = { text: action, column: 'actionItems' };
+    dispatch(addActionItem(actionItem));
     setAction('');
   };
 
@@ -24,7 +25,7 @@ const ActionItems = () => {
       <Button onClick={handleAddAction}>Add Action Item</Button>
       <div>
         {actionItems.map((item, index) => (
-          <div key={index}>{item}</div>
+          <div key={index}>{item.text}</div>
         ))}
       </div>
     </div>

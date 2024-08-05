@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import { Button, Skeleton, Input } from 'antd';
+import { Button, Skeleton, Input, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment, updateComment, voteComment, addActionItem, resetVotes } from '../redux/slices/card';
 import jsPDF from 'jspdf';
@@ -15,9 +15,10 @@ const Main = () => {
     workedWell: '',
     couldImprove: '',
     askAbout: '',
+    actionItems: '',
   });
   const reduxComments = useSelector(state => state.cards.comments);
-  const actionItems = useSelector(state => state.cards.actionItems); // Eklenen satır
+  const actionItems = useSelector(state => state.cards.actionItems);
   const totalVotesUsed = useSelector(state => state.cards.totalVotesUsed);
   const dispatch = useDispatch();
 
@@ -33,9 +34,13 @@ const Main = () => {
     socket.on('resetVotes', () => {
       dispatch(resetVotes());
     });
-  }, [socket, dispatch]);
+  }, [dispatch]);
 
   const handleAddComment = (column) => {
+    if (!comments[column].trim()) {
+      message.error('Comment cannot be empty');
+      return;
+    }
     const newComment = { text: comments[column], visible: step > 1, votes: 0, column };
     socket.emit('addComment', newComment);
     setComments(prevState => ({ ...prevState, [column]: '' }));
@@ -55,6 +60,16 @@ const Main = () => {
     }
   };
 
+  const handleAddActionItem = () => {
+    if (!comments.actionItems.trim()) {
+      message.error('Action item cannot be empty');
+      return;
+    }
+    const actionItem = { text: comments.actionItems, column: 'actionItems' };
+    dispatch(addActionItem(actionItem));
+    setComments(prevState => ({ ...prevState, actionItems: '' }));
+  };
+
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -67,7 +82,7 @@ const Main = () => {
       doc.text(`${index + 1}. ${comment.text} (Votes: ${comment.votes || 0})`, 10, 30 + index * 10);
     });
     doc.text("Action Items:", 10, 30 + reduxComments.length * 10);
-    actionItems.forEach((item, index) => { // Eklenen satır
+    actionItems.forEach((item, index) => {
       doc.text(`${index + 1}. ${item.text}`, 10, 40 + reduxComments.length * 10 + index * 10);
     });
     doc.save("results.pdf");
@@ -115,7 +130,7 @@ const Main = () => {
           column="askAbout"
         />
         {step === 3 && (
-          <ActionItems />
+          <ActionItems/>
         )}
       </div>
       {step < 4 && <Button onClick={nextStep}>Next Step</Button>}

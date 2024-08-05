@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   comments: [],
   actionItems: [],
-  totalVotesUsed: 0, // Track total votes used across all comments
+  totalVotesUsed: 0,
 };
 
 const cardSlice = createSlice({
@@ -11,7 +11,7 @@ const cardSlice = createSlice({
   initialState,
   reducers: {
     addComment: (state, action) => {
-      state.comments.push({ ...action.payload, votes: 0 }); // Ensure votes is initialized
+      state.comments.push({ ...action.payload, votes: 0 });
     },
     updateComment: (state, action) => {
       const { index, text } = action.payload;
@@ -24,7 +24,7 @@ const cardSlice = createSlice({
       const comment = state.comments.find(c => c.index === index && c.column === column);
       
       if (comment && state.totalVotesUsed < 5) {
-        comment.votes = (comment.votes || 0) + 1; // Initialize votes if undefined
+        comment.votes = (comment.votes || 0) + 1;
         state.totalVotesUsed += 1;
       } else {
         console.error("Comment not found or max votes reached.");
@@ -35,7 +35,7 @@ const cardSlice = createSlice({
     },
     resetVotes: (state) => {
       state.totalVotesUsed = 0;
-      // Optionally reset votes for each comment if needed
+
       state.comments = state.comments.map(comment => ({ ...comment, votes: 0 }));
     },
   },

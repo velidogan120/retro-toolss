@@ -157,7 +157,7 @@ const Column = ({ title, comments, isEditable, isVisible, comment, setComment, h
       <div>
         {comments.map((c) => (
           <Comment 
-            key={c.index} // Ensure unique key, assuming `index` is unique
+            key={c.index}
             comment={c}
             isVisible={isVisible}
             handleVote={() => handleVote(c.index, column)}

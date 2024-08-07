@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import { Input, Button, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';

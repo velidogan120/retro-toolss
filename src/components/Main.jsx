@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { Button, Skeleton, Input, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addComment, updateComment, voteComment, addActionItem, resetVotes } from '../redux/slices/card';
+import { addComment, voteComment, addActionItem, resetVotes } from '../redux/slices/card';
 import jsPDF from 'jspdf';
 import ActionItems from './ActionItems';
+import Column from './Column';
 
 const socket = io('http://localhost:4001');
 
@@ -35,6 +36,13 @@ const Main = () => {
     socket.on('resetVotes', () => {
       dispatch(resetVotes());
     });
+
+    // Clean up the event listeners on unmount
+    return () => {
+      socket.off('commentAdded');
+      socket.off('voteComment');
+      socket.off('resetVotes');
+    };
   }, [dispatch]);
 
   const handleAddComment = (column) => {
@@ -114,6 +122,7 @@ const Main = () => {
           handleVote={handleVote}
           column="workedWell"
           sessionId={sessionId}
+          step={step}
         />
         <Column 
           title="We could improve..." 
@@ -126,6 +135,7 @@ const Main = () => {
           handleVote={handleVote}
           column="couldImprove"
           sessionId={sessionId}
+          step={step}
         />
         <Column 
           title="I want to ask about..." 
@@ -138,6 +148,7 @@ const Main = () => {
           handleVote={handleVote}
           column="askAbout"
           sessionId={sessionId}
+          step={step}
         />
         {step === 3 && (
           <ActionItems/>
@@ -146,54 +157,6 @@ const Main = () => {
       {step < 4 && <Button onClick={nextStep}>Next Step</Button>}
       {step === 4 && <Button onClick={exportPDF}>Export as PDF</Button>}
       {step === 4 && <Button onClick={resetVotes}>Reset Votes</Button>}
-    </div>
-  );
-};
-
-const Column = ({ title, comments, isEditable, isVisible, comment, setComment, handleAddComment, handleVote, column, sessionId }) => {
-  return (
-    <div style={{ flex: 1, margin: '0 10px' }}>
-      <h3>{title}</h3>
-      {isEditable && (
-        <>
-          <Input.TextArea 
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="Write your comment here..."
-          />
-          <Button onClick={handleAddComment}>Add Comment</Button>
-        </>
-      )}
-      <div>
-        {comments.map((c) => (
-          <Comment 
-            key={c.id}
-            comment={c}
-            isVisible={isVisible || c.sessionId === sessionId}
-            handleVote={handleVote}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const Comment = ({ comment, isVisible, handleVote }) => {
-  if (!comment) {
-    return <Skeleton active />;
-  }
-  
-  return (
-    <div>
-      {isVisible ? (
-        <>
-          <span>{comment.text}</span>
-          <Button onClick={() => handleVote(comment.id)}>Vote</Button>
-          <span>{comment.votes || 0}</span>
-        </>
-      ) : (
-        <Skeleton active />
-      )}
     </div>
   );
 };

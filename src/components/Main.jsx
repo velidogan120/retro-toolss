@@ -1,5 +1,3 @@
-// src/components/Main.jsx
-
 'use client';
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
@@ -23,6 +21,7 @@ const Main = () => {
   const actionItems = useSelector(state => state.cards.actionItems);
   const totalVotesUsed = useSelector(state => state.cards.totalVotesUsed);
   const dispatch = useDispatch();
+  const [sessionId] = useState(() => `${Date.now()}-${Math.random()}`); // unique session id for each user
 
   useEffect(() => {
     socket.on('commentAdded', (data) => {
@@ -43,7 +42,13 @@ const Main = () => {
       message.error('Comment cannot be empty');
       return;
     }
-    const newComment = { text: comments[column], visible: step > 1, votes: 0, column };
+    const newComment = { 
+      text: comments[column], 
+      visible: true, // user can see their own comment
+      votes: 0, 
+      column, 
+      sessionId 
+    };
     socket.emit('addComment', newComment);
     setComments(prevState => ({ ...prevState, [column]: '' }));
   };
@@ -108,6 +113,7 @@ const Main = () => {
           handleAddComment={() => handleAddComment('workedWell')}
           handleVote={handleVote}
           column="workedWell"
+          sessionId={sessionId}
         />
         <Column 
           title="We could improve..." 
@@ -119,6 +125,7 @@ const Main = () => {
           handleAddComment={() => handleAddComment('couldImprove')}
           handleVote={handleVote}
           column="couldImprove"
+          sessionId={sessionId}
         />
         <Column 
           title="I want to ask about..." 
@@ -130,6 +137,7 @@ const Main = () => {
           handleAddComment={() => handleAddComment('askAbout')}
           handleVote={handleVote}
           column="askAbout"
+          sessionId={sessionId}
         />
         {step === 3 && (
           <ActionItems/>
@@ -142,7 +150,7 @@ const Main = () => {
   );
 };
 
-const Column = ({ title, comments, isEditable, isVisible, comment, setComment, handleAddComment, handleVote, column }) => {
+const Column = ({ title, comments, isEditable, isVisible, comment, setComment, handleAddComment, handleVote, column, sessionId }) => {
   return (
     <div style={{ flex: 1, margin: '0 10px' }}>
       <h3>{title}</h3>
@@ -161,7 +169,7 @@ const Column = ({ title, comments, isEditable, isVisible, comment, setComment, h
           <Comment 
             key={c.id}
             comment={c}
-            isVisible={isVisible}
+            isVisible={isVisible || c.sessionId === sessionId}
             handleVote={handleVote}
           />
         ))}

@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { voteComment } from '../redux/slices/card';
@@ -18,12 +17,14 @@ const GroupVote = ({ socket }) => {
   };
 
   return (
-    <div>
+    <div className="column">
+      <div className="column-title">Group Vote</div>
       {comments.map((c, index) => (
-        <div key={index}>
-          <span>{c.text}</span>
-          <button onClick={() => handleVote(index)}>Vote</button>
-          <span>{c.votes}</span>
+        <div key={index} className="comment">
+          {/* <img src ='/public/assets/img/pokemon1.jpg' alt="User Avatar" className="comment-avatar" /> */}
+          <span className="comment-text">{c.text}</span>
+          <Button onClick={() => handleVote(index)} className="comment-actions">Vote</Button>
+          <span className="comment-votes">{c.votes}</span>
         </div>
       ))}
     </div>

@@ -13,23 +13,17 @@ const cardSlice = createSlice({
     addComment: (state, action) => {
       state.comments.push({ ...action.payload, votes: 0 });
     },
-    updateComment: (state, action) => {
-      const { index, text } = action.payload;
-      if (state.comments[index]) {
-        state.comments[index].text = text;
-      }
-    },
     voteComment: (state, action) => {
-      const { index, column } = action.payload;
-      const comment = state.comments.find(
-        (c) => c.index === index && c.column === column
-      );
+      if (state.totalVotesUsed < 5) {
+        const { index, column } = action.payload;
+        const comment = state.comments.filter(c => c.column === column)[index];
 
-      if (comment && state.totalVotesUsed < 5) {
-        comment.votes = (comment.votes || 0) + 1;
-        state.totalVotesUsed += 1;
+        if (comment) {
+          comment.votes = (comment.votes || 0) + 1;
+          state.totalVotesUsed += 1;
+        }
       } else {
-        console.error("Comment not found or max votes reached.");
+        alert('You can only vote up to 5 times.');
       }
     },
     addActionItem: (state, action) => {
@@ -37,20 +31,12 @@ const cardSlice = createSlice({
     },
     resetVotes: (state) => {
       state.totalVotesUsed = 0;
-
-      state.comments = state.comments.map((comment) => ({
-        ...comment,
-        votes: 0,
-      }));
+      state.comments.forEach(comment => {
+        comment.votes = 0;
+      });
     },
   },
 });
 
-export const {
-  addComment,
-  updateComment,
-  voteComment,
-  addActionItem,
-  resetVotes,
-} = cardSlice.actions;
+export const { addComment, voteComment, addActionItem, resetVotes } = cardSlice.actions;
 export default cardSlice.reducer;

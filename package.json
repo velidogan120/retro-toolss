@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+     "scss": "sass -w src/styles/scss:src/styles/css"
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",

@@ -1,0 +1,63 @@
+@charset "UTF-8";
+.main-container {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap; /* Kartları yan yana yerleştirir */
+  gap: 10px; /* Kolonlar arasına boşluk ekler */
+}
+
+.column {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 10px;
+  flex: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: calc(25% - 20px);
+  display: flex;
+  flex-direction: column;
+}
+
+.column-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-avatar {
+  width: 64px; /* Resmin genişliği */
+  height: 64px; /* Resmin yüksekliği */
+  border: 1px solid #9a9a9a; /* Yuvarlak border için renk */
+  border-radius: 50%; /* Resmi yuvarlak yapmak için */
+  overflow: hidden; /* Kenar taşmalarını gizlemek için */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 33px;
+}
+
+.comment-avatar img {
+  width: 100%; /* Resmi avatarın boyutuna göre ölçeklendirin */
+  height: auto; /* Yüksekliği otomatik ayarlayın */
+}
+
+.comment-text {
+  flex: 1;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+}
+
+.comment-votes {
+  margin-left: 10px;
+}
+
+/*# sourceMappingURL=main.css.map */

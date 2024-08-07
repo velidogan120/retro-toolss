@@ -1,4 +1,3 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 import { Input, Button, Skeleton } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,14 +28,15 @@ const Brainstorm = ({ socket }) => {
   };
 
   return (
-    <div>
+    <div className="main-container">
       <Input.TextArea 
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         placeholder="Write your comment here..."
       />
-      <Button onClick={handleAddComment}>Add Comment</Button>
-      <div>
+      <Button onClick={handleAddComment} style={{ marginTop: '10px' }}>Add Comment</Button>
+      <div className="column">
+        <div className="column-title">Brainstorm Comments</div>
         {comments.map((c, index) => (
           <Comment
             key={index}
@@ -56,20 +56,22 @@ const Brainstorm = ({ socket }) => {
 
 const Comment = ({ comment, isEditing, onEdit, onCancel, editText, onTextChange, onUpdate }) => {
   return (
-    <div>
+    <div className="comment">
+      <img src ='/assets/img/pokemon1.jpg' alt="User Avatar" className="comment-avatar" />
       {isEditing ? (
         <>
           <Input.TextArea 
             value={editText}
             onChange={(e) => onTextChange(e.target.value)}
+            className="comment-text"
           />
-          <Button onClick={() => onUpdate(editText)}>Save</Button>
-          <Button onClick={onCancel}>Cancel</Button>
+          <Button onClick={() => onUpdate(editText)} className="comment-actions">Save</Button>
+          <Button onClick={onCancel} className="comment-actions">Cancel</Button>
         </>
       ) : (
         <>
-          <span>{comment.visible ? comment.text : <Skeleton active />}</span>
-          {comment.visible && <Button onClick={onEdit}>Edit</Button>}
+          <span className="comment-text">{comment.visible ? comment.text : <Skeleton active />}</span>
+          {comment.visible && <Button onClick={onEdit} className="comment-actions">Edit</Button>}
         </>
       )}
     </div>

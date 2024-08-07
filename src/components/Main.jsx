@@ -1,3 +1,5 @@
+// src/components/Main.jsx
+
 'use client';
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
@@ -46,14 +48,14 @@ const Main = () => {
     setComments(prevState => ({ ...prevState, [column]: '' }));
   };
 
-  const handleVote = (index, column) => {
+  const handleVote = (id) => {
     if (totalVotesUsed < 5) {
-      const comment = reduxComments.find(c => c.column === column && c.index === index);
+      const comment = reduxComments.find(c => c.id === id);
       if (comment) {
-        dispatch(voteComment({ index, column }));
-        socket.emit('voteComment', { index, column });
+        dispatch(voteComment({ id }));
+        socket.emit('voteComment', { id });
       } else {
-        console.error(`Comment with index ${index} not found in column ${column}`);
+        console.error(`Comment with id ${id} not found`);
       }
     } else {
       alert('You have used all your votes.');
@@ -157,10 +159,10 @@ const Column = ({ title, comments, isEditable, isVisible, comment, setComment, h
       <div>
         {comments.map((c) => (
           <Comment 
-            key={c.index}
+            key={c.id}
             comment={c}
             isVisible={isVisible}
-            handleVote={() => handleVote(c.index, column)}
+            handleVote={handleVote}
           />
         ))}
       </div>
@@ -178,7 +180,7 @@ const Comment = ({ comment, isVisible, handleVote }) => {
       {isVisible ? (
         <>
           <span>{comment.text}</span>
-          <Button onClick={handleVote}>Vote</Button>
+          <Button onClick={() => handleVote(comment.id)}>Vote</Button>
           <span>{comment.votes || 0}</span>
         </>
       ) : (

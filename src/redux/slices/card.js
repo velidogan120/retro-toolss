@@ -21,8 +21,10 @@ const cardSlice = createSlice({
     },
     voteComment: (state, action) => {
       const { index, column } = action.payload;
-      const comment = state.comments.find(c => c.index === index && c.column === column);
-      
+      const comment = state.comments.find(
+        (c) => c.index === index && c.column === column
+      );
+
       if (comment && state.totalVotesUsed < 5) {
         comment.votes = (comment.votes || 0) + 1;
         state.totalVotesUsed += 1;
@@ -36,11 +38,19 @@ const cardSlice = createSlice({
     resetVotes: (state) => {
       state.totalVotesUsed = 0;
 
-      state.comments = state.comments.map(comment => ({ ...comment, votes: 0 }));
+      state.comments = state.comments.map((comment) => ({
+        ...comment,
+        votes: 0,
+      }));
     },
   },
 });
 
-export const { addComment, updateComment, voteComment, addActionItem, resetVotes } =
-  cardSlice.actions;
+export const {
+  addComment,
+  updateComment,
+  voteComment,
+  addActionItem,
+  resetVotes,
+} = cardSlice.actions;
 export default cardSlice.reducer;

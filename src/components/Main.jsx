@@ -1,3 +1,5 @@
+// src/components/Main.jsx
+
 'use client';
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
@@ -37,11 +39,16 @@ const Main = () => {
       dispatch(resetVotes());
     });
 
+    socket.on('nextStep', () => {
+      setStep(prevStep => prevStep + 1);
+    });
+
     // Clean up the event listeners on unmount
     return () => {
       socket.off('commentAdded');
       socket.off('voteComment');
       socket.off('resetVotes');
+      socket.off('nextStep');
     };
   }, [dispatch]);
 
@@ -86,7 +93,7 @@ const Main = () => {
   };
 
   const nextStep = () => {
-    setStep(step + 1);
+    socket.emit('nextStep');
   };
 
   const exportPDF = () => {

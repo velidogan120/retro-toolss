@@ -1,3 +1,5 @@
+// server/index.js
+
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
@@ -17,6 +19,18 @@ io.on("connection", (socket) => {
 
   socket.on("addComment", (data) => {
     io.emit("commentAdded", data);
+  });
+
+  socket.on("voteComment", (data) => {
+    io.emit("voteComment", data);
+  });
+
+  socket.on("resetVotes", () => {
+    io.emit("resetVotes");
+  });
+
+  socket.on("nextStep", () => {
+    io.emit("nextStep");
   });
 
   socket.on("disconnect", () => {

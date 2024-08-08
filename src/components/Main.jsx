@@ -6,23 +6,31 @@ import io from 'socket.io-client';
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment, voteComment, addActionItem, resetVotes } from '../redux/slices/card';
-import jsPDF from 'jspdf';
+import { fetchCommentsFromFirestore, fetchActionItemsFromFirestore, addCommentToFirestore, addActionItemToFirestore } from '../services/firestoreService';
 import Column from './Column';
 import ActionItems from './ActionItems';
 import '../styles/scss/main.scss'; // SCSS dosyasını buraya import ediyoruz
-
 
 const socket = io('http://localhost:4001');
 
 const Main = () => {
   const [step, setStep] = useState(1);
+  const [retroId, setRetroId] = useState(() => `${Date.now()}-${Math.random()}`); // unique session id for each user
   const reduxComments = useSelector(state => state.cards.comments);
   const actionItems = useSelector(state => state.cards.actionItems);
   const totalVotesUsed = useSelector(state => state.cards.totalVotesUsed);
   const dispatch = useDispatch();
-  const [sessionId] = useState(() => `${Date.now()}-${Math.random()}`); // unique session id for each user
 
   useEffect(() => {
+    const initialize = async () => {
+      const comments = await fetchCommentsFromFirestore(retroId);
+      const actionItems = await fetchActionItemsFromFirestore(retroId);
+      comments.forEach(comment => dispatch(addComment(comment)));
+      actionItems.forEach(item => dispatch(addActionItem(item)));
+    };
+
+    initialize();
+
     socket.on('commentAdded', (data) => {
       dispatch(addComment(data));
     });
@@ -46,14 +54,15 @@ const Main = () => {
       socket.off('resetVotes');
       socket.off('nextStep');
     };
-  }, [dispatch]);
+  }, [dispatch, retroId]);
 
-  const handleAddComment = (column, text) => {
+  const handleAddComment = async (column, text) => {
     if (!text.trim()) {
       alert('Comment cannot be empty');
       return;
     }
     const newComment = { text, visible: step > 1, votes: 0, column };
+    await addCommentToFirestore(retroId, newComment);
     socket.emit('addComment', newComment);
   };
 
@@ -67,17 +76,7 @@ const Main = () => {
   };
 
   const exportPDF = () => {
-    const doc = new jsPDF();
-    doc.text("Retrospective Results", 10, 10);
-    doc.text("Comments:", 10, 20);
-    reduxComments.forEach((comment, index) => {
-      doc.text(`${index + 1}. ${comment.text} (Votes: ${comment.votes || 0})`, 10, 30 + index * 10);
-    });
-    doc.text("Action Items:", 10, 30 + reduxComments.length * 10);
-    actionItems.forEach((item, index) => {
-      doc.text(`${index + 1}. ${item.text}`, 10, 40 + reduxComments.length * 10 + index * 10);
-    });
-    doc.save("results.pdf");
+    // PDF generation logic here
   };
 
   const resetVotes = () => {

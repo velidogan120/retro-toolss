@@ -1,5 +1,13 @@
 import { db } from '../redux/firebase';
 import { collection, addDoc, updateDoc, doc, getDocs, query, where, deleteDoc } from 'firebase/firestore';
+export const deleteActionItemFromFirestore = async (retroId, actionItemId) => {
+  try {
+    const actionItemRef = doc(db, `retros/${retroId}/actionItems`, actionItemId);
+    await deleteDoc(actionItemRef);
+  } catch (error) {
+    console.error("Error deleting action item: ", error);
+  }
+};
 export const deleteCommentFromFirestore = async (retroId, commentId) => {
   try {
     const commentRef = doc(db, `retros/${retroId}/comments`, commentId);

@@ -3,7 +3,8 @@ import { Input, Button, message, Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addActionItem } from '../redux/slices/card';
 import { addActionItemToFirestore } from '@/services/firestoreService';
-
+import { deleteActionItemFromFirestore } from '@/services/firestoreService';
+import { deleteActionItem } from '../redux/slices/card';
 const ActionItems = ({retroId}) => {
   const [action, setAction] = useState('');
   const actionItems = useSelector(state => state.cards.actionItems);
@@ -21,6 +22,11 @@ const ActionItems = ({retroId}) => {
     setAction('');
   };
 
+  const handleDeleteActionItem = async (actionItemId) => {
+    await deleteActionItemFromFirestore(retroId, actionItemId);
+    dispatch(deleteActionItem(actionItemId));
+  };
+
   return (
     <Card title="Action Items">
       <Input 
@@ -31,7 +37,10 @@ const ActionItems = ({retroId}) => {
       <Button onClick={handleAddAction} style={{ marginTop: '10px' }}>Add Action Item</Button>
       <div>
         {actionItems.map((item, index) => (
-          <div key={index}>{item.text}</div>
+          <div key={index}>
+            {item.text}
+            <Button onClick={() => handleDeleteActionItem(item.id)} style={{ marginLeft: '10px' }}>Delete</Button>
+          </div>
         ))}
       </div>
     </Card>

@@ -15,6 +15,10 @@ const io = socketIo(server, {
 io.on("connection", (socket) => {
   console.log("New client connected");
 
+  socket.on("deleteActionItem", (actionItemId) => {
+    io.emit("deleteActionItem", actionItemId);
+  });
+
   socket.on("addComment", (data) => {
     io.emit("commentAdded", data);
   });

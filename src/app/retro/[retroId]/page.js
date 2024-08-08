@@ -47,14 +47,23 @@ const RetroToolPage = ({ params }) => {
     socket.on('nextStep', () => {
       setStep(prevStep => prevStep + 1);
     });
-
+    socket.on('deleteActionItem', (actionItemId) => {
+      dispatch(deleteActionItem(actionItemId));
+    });
     return () => {
       socket.off('commentAdded');
       socket.off('voteComment');
       socket.off('resetVotes');
       socket.off('nextStep');
+      socket.off('deleteActionItem');
     };
   }, [dispatch, retroId]);
+
+  const handleDeleteActionItem = async (actionItemId) => {
+    await deleteActionItemFromFirestore(retroId, actionItemId);
+    dispatch(deleteActionItem(actionItemId));
+    socket.emit('deleteActionItem', actionItemId);
+  };
 
   const handleAddComment = async (column, text) => {
     if (!text.trim()) {

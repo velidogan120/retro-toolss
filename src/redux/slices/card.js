@@ -35,6 +35,9 @@ const cardSlice = createSlice({
     addActionItem: (state, action) => {
       state.actionItems.push(action.payload);
     },
+    deleteActionItem: (state, action) => {
+      state.actionItems = state.actionItems.filter(item => item.id !== action.payload);
+    },
     resetVotes: (state) => {
       state.totalVotesUsed = 0;
       state.comments.forEach(comment => {
@@ -45,6 +48,6 @@ const cardSlice = createSlice({
   },
 });
 
-export const { addComment, voteComment, deleteComment, addActionItem, resetVotes } = cardSlice.actions;
+export const { addComment, voteComment, deleteComment, addActionItem, resetVotes, deleteActionItem } = cardSlice.actions;
 export default cardSlice.reducer;
 

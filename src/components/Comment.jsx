@@ -1,5 +1,3 @@
-// src/components/Comment.jsx
-
 import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Skeleton } from 'antd';
 

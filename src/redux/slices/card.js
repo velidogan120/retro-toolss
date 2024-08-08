@@ -6,8 +6,6 @@ const initialState = {
   totalVotesUsed: 0,
 };
 
-// src/redux/slices/card.js
-
 const cardSlice = createSlice({
   name: "cards",
   initialState,

@@ -11,7 +11,12 @@ const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
       '/assets/img/pokemon1.jpg',
       '/assets/img/pokemon2.jpg',
       '/assets/img/pokemon3.jpg',
-      '/assets/img/pokemon4.jpg'
+      '/assets/img/pokemon4.jpg',
+      '/assets/img/1.jpg',
+      '/assets/img/2.jpg',
+      '/assets/img/3.jpg',
+      '/assets/img/4.jpg',
+      '/assets/img/5.jpg',
     ];
     const randomImage = images[Math.floor(Math.random() * images.length)];
     setUserImg(randomImage);

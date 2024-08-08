@@ -7,9 +7,10 @@ import { addComment, voteComment, addActionItem, resetVotes, deleteComment } fro
 import { fetchCommentsFromFirestore, fetchActionItemsFromFirestore, addCommentToFirestore, addActionItemToFirestore, deleteCommentFromFirestore } from '@/services/firestoreService';
 import Column from '@/components/Column';
 import ActionItems from '@/components/ActionItems';
-import { Button } from 'antd';
+import { Button, Col, Row } from 'antd';
 import io from 'socket.io-client';
 import jsPDF from 'jspdf';
+import styles from "@/styles/css/module.css";
 const socket = io('http://localhost:4001');
 
 const RetroToolPage = ({ params }) => {
@@ -98,46 +99,56 @@ const RetroToolPage = ({ params }) => {
   };
 
   return (
-    <div className="main-container">
-      <Column 
-        title="It worked well that..." 
-        comments={reduxComments.filter(c => c.column === 'workedWell')}
-        handleAddComment={handleAddComment}
-        handleVote={handleVote}
-        handleDelete={handleDelete}
-        column="workedWell"
-        isEditable={step === 1}
-        isVisible={step > 1}
-        sessionId={sessionId}
-        step={step}
-      />
-      <Column 
-        title="We could improve..." 
-        comments={reduxComments.filter(c => c.column === 'couldImprove')}
-        handleAddComment={handleAddComment}
-        handleVote={handleVote}
-        handleDelete={handleDelete}
-        column="couldImprove"
-        isEditable={step === 1}
-        isVisible={step > 1}
-        sessionId={sessionId}
-        step={step}
-      />
-      <Column 
-        title="I want to ask about..." 
-        comments={reduxComments.filter(c => c.column === 'askAbout')}
-        handleAddComment={handleAddComment}
-        handleVote={handleVote}
-        handleDelete={handleDelete}
-        column="askAbout"
-        isEditable={step === 1}
-        isVisible={step > 1}
-        sessionId={sessionId}
-        step={step}
-      />
-      {step >= 3 && (
-        <ActionItems />
-      )}
+    <div className={styles["main-container"]}>
+      <Row gutter={16} className={styles.row}>
+        <Col xs={24} sm={12} md={6} className={styles.column}>
+          <Column 
+            title="It worked well that..." 
+            comments={reduxComments.filter(c => c.column === 'workedWell')}
+            handleAddComment={handleAddComment}
+            handleVote={handleVote}
+            handleDelete={handleDelete}
+            column="workedWell"
+            isEditable={step === 1}
+            isVisible={step > 1}
+            sessionId={sessionId}
+            step={step}
+          />
+        </Col>
+        <Col xs={24} sm={12} md={6} className={styles.column}>
+          <Column 
+            title="We could improve..." 
+            comments={reduxComments.filter(c => c.column === 'couldImprove')}
+            handleAddComment={handleAddComment}
+            handleVote={handleVote}
+            handleDelete={handleDelete}
+            column="couldImprove"
+            isEditable={step === 1}
+            isVisible={step > 1}
+            sessionId={sessionId}
+            step={step}
+          />
+        </Col>
+        <Col xs={24} sm={12} md={6} className={styles.column}>
+          <Column 
+            title="I want to ask about..." 
+            comments={reduxComments.filter(c => c.column === 'askAbout')}
+            handleAddComment={handleAddComment}
+            handleVote={handleVote}
+            handleDelete={handleDelete}
+            column="askAbout"
+            isEditable={step === 1}
+            isVisible={step > 1}
+            sessionId={sessionId}
+            step={step}
+          />
+        </Col>
+        {step >= 3 && (
+          <Col xs={24} sm={12} md={6} className={styles.column}>
+            <ActionItems retroId={retroId} />
+          </Col>
+        )}
+      </Row>
       {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }}>Next Step</Button>}
       {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}
       {step === 4 && <Button onClick={resetVotes} style={{ marginTop: '20px' }}>Reset Votes</Button>}

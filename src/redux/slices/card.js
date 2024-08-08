@@ -20,9 +20,10 @@ const cardSlice = createSlice({
         const { index, column } = action.payload;
         const comment = state.comments.filter(c => c.column === column)[index];
 
-        if (comment) {
+        if (comment && !comment.hasVoted) {
           comment.votes = (comment.votes || 0) + 1;
           state.totalVotesUsed += 1;
+          comment.hasVoted = true;
         }
       } else {
         alert('You can only vote up to 5 times.');
@@ -31,7 +32,16 @@ const cardSlice = createSlice({
     deleteComment: (state, action) => {
       state.comments = state.comments.filter(comment => comment.id !== action.payload);
     },
-    // Other reducers...
+    addActionItem: (state, action) => {
+      state.actionItems.push(action.payload);
+    },
+    resetVotes: (state) => {
+      state.totalVotesUsed = 0;
+      state.comments.forEach(comment => {
+        comment.votes = 0;
+        comment.hasVoted = false;
+      });
+    },
   },
 });
 

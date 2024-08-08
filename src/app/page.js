@@ -3,6 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from 'antd';
+import styles from "./page.module.css";
 
 const Home = () => {
   const router = useRouter();
@@ -13,8 +14,8 @@ const Home = () => {
   };
 
   return (
-    <main className="main-container">
-      <Button onClick={createRetroTool} type="primary">
+    <main className={styles.mainContainer}>
+      <Button onClick={createRetroTool} type="primary" className={styles.centerButton}>
         Create New Retro Tool
       </Button>
     </main>

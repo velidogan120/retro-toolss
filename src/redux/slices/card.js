@@ -6,12 +6,14 @@ const initialState = {
   totalVotesUsed: 0,
 };
 
+// src/redux/slices/card.js
+
 const cardSlice = createSlice({
   name: "cards",
   initialState,
   reducers: {
     addComment: (state, action) => {
-      state.comments.push({ ...action.payload, votes: 0, id: Date.now() });
+      state.comments.push({ ...action.payload, votes: 0, id: action.payload.id || Date.now() });
     },
     voteComment: (state, action) => {
       if (state.totalVotesUsed < 5) {
@@ -26,17 +28,13 @@ const cardSlice = createSlice({
         alert('You can only vote up to 5 times.');
       }
     },
-    addActionItem: (state, action) => {
-      state.actionItems.push(action.payload);
+    deleteComment: (state, action) => {
+      state.comments = state.comments.filter(comment => comment.id !== action.payload);
     },
-    resetVotes: (state) => {
-      state.totalVotesUsed = 0;
-      state.comments.forEach(comment => {
-        comment.votes = 0;
-      });
-    },
+    // Other reducers...
   },
 });
 
-export const { addComment, voteComment, addActionItem, resetVotes } = cardSlice.actions;
+export const { addComment, voteComment, deleteComment, addActionItem, resetVotes } = cardSlice.actions;
 export default cardSlice.reducer;
+

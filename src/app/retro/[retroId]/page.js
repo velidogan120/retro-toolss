@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { addComment, voteComment, addActionItem, resetVotes } from '@/redux/slices/card';
-import { fetchCommentsFromFirestore, fetchActionItemsFromFirestore, addCommentToFirestore, addActionItemToFirestore } from '@/services/firestoreService';
+import { addComment, voteComment, addActionItem, resetVotes, deleteComment } from '@/redux/slices/card';
+import { fetchCommentsFromFirestore, fetchActionItemsFromFirestore, addCommentToFirestore, addActionItemToFirestore, deleteCommentFromFirestore } from '@/services/firestoreService';
 import Column from '@/components/Column';
 import ActionItems from '@/components/ActionItems';
 import { Button } from 'antd';
@@ -61,7 +61,7 @@ const RetroToolPage = ({ params }) => {
       return;
     }
     const newComment = { text, visible: true, votes: 0, column, sessionId };
-    await addCommentToFirestore(retroId, newComment);
+    await addCommentToFirestore(retroId, newComment);    
     socket.emit('addComment', newComment);
   };
 
@@ -69,7 +69,11 @@ const RetroToolPage = ({ params }) => {
     dispatch(voteComment({ index, column }));
     socket.emit('voteComment', { index, column });
   };
-
+  const handleDelete = async (commentId) => {
+    await deleteCommentFromFirestore(retroId, `${commentId}`);
+    dispatch(deleteComment(commentId));
+    socket.emit('deleteComment', commentId);
+  };
   const nextStep = () => {
     socket.emit('nextStep');
   };
@@ -100,30 +104,36 @@ const RetroToolPage = ({ params }) => {
         comments={reduxComments.filter(c => c.column === 'workedWell')}
         handleAddComment={handleAddComment}
         handleVote={handleVote}
+        handleDelete={handleDelete}
         column="workedWell"
         isEditable={step === 1}
         isVisible={step > 1}
         sessionId={sessionId}
+        step={step}
       />
       <Column 
         title="We could improve..." 
         comments={reduxComments.filter(c => c.column === 'couldImprove')}
         handleAddComment={handleAddComment}
         handleVote={handleVote}
+        handleDelete={handleDelete}
         column="couldImprove"
         isEditable={step === 1}
         isVisible={step > 1}
         sessionId={sessionId}
+        step={step}
       />
       <Column 
         title="I want to ask about..." 
         comments={reduxComments.filter(c => c.column === 'askAbout')}
         handleAddComment={handleAddComment}
         handleVote={handleVote}
+        handleDelete={handleDelete}
         column="askAbout"
         isEditable={step === 1}
         isVisible={step > 1}
         sessionId={sessionId}
+        step={step}
       />
       {step >= 3 && (
         <ActionItems />

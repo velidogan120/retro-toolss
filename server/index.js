@@ -23,6 +23,10 @@ io.on("connection", (socket) => {
     io.emit("voteComment", data);
   });
 
+  socket.on("deleteComment", (commentId) => {
+    io.emit("commentDeleted", commentId);
+  });
+
   socket.on("resetVotes", () => {
     io.emit("resetVotes");
   });

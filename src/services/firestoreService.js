@@ -1,6 +1,13 @@
 import { db } from '../redux/firebase';
-import { collection, addDoc, updateDoc, doc, getDocs, query, where } from 'firebase/firestore';
-
+import { collection, addDoc, updateDoc, doc, getDocs, query, where, deleteDoc } from 'firebase/firestore';
+export const deleteCommentFromFirestore = async (retroId, commentId) => {
+  try {
+    const commentRef = doc(db, `retros/${retroId}/comments`, commentId);
+    await deleteDoc(commentRef);
+  } catch (error) {
+    console.error("Error deleting comment: ", error);
+  }
+};
 export const addCommentToFirestore = async (retroId, comment) => {
   try {
     const commentsRef = collection(db, `retros/${retroId}/comments`);

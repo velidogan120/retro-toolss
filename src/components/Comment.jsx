@@ -10,7 +10,6 @@ const Comment = ({ comment, isVisible, handleVote }) => {
       '/assets/img/pokemon2.jpg',
       '/assets/img/pokemon3.jpg',
         '/assets/img/pokemon4.jpg'
-      // Diğer resim URL'lerini buraya ekleyin
     ];
     const randomImage = images[Math.floor(Math.random() * images.length)];
     setUserImg(randomImage);

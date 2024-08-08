@@ -1,5 +1,3 @@
-// src/redux/slices/card.js
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -13,7 +11,7 @@ const cardSlice = createSlice({
   initialState,
   reducers: {
     addComment: (state, action) => {
-      state.comments.push({ ...action.payload, votes: 0, id: Date.now() }); // Ensure each comment has a unique id
+      state.comments.push({ ...action.payload, votes: 0, id: Date.now() });
     },
     voteComment: (state, action) => {
       if (state.totalVotesUsed < 5) {

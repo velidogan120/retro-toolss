@@ -8,9 +8,7 @@ const Home = () => {
   const router = useRouter();
 
   const createRetroTool = () => {
-    // Benzersiz bir retro ID'si oluştur
     const retroId = `${Date.now()}-${Math.random()}`;
-    // Yeni retro aracının sayfasına yönlendir
     router.push(`/retro/${retroId}`);
   };
 

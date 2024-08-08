@@ -1,9 +1,6 @@
-// src/services/firestoreService.js
-
 import { db } from '../redux/firebase';
 import { collection, addDoc, updateDoc, doc, getDocs, query, where } from 'firebase/firestore';
 
-// Add a new comment
 export const addCommentToFirestore = async (retroId, comment) => {
   try {
     const commentsRef = collection(db, `retros/${retroId}/comments`);
@@ -13,7 +10,6 @@ export const addCommentToFirestore = async (retroId, comment) => {
   }
 };
 
-// Fetch comments
 export const fetchCommentsFromFirestore = async (retroId) => {
   try {
     const commentsRef = collection(db, `retros/${retroId}/comments`);
@@ -26,7 +22,6 @@ export const fetchCommentsFromFirestore = async (retroId) => {
   }
 };
 
-// Add action item
 export const addActionItemToFirestore = async (retroId, actionItem) => {
   try {
     const actionItemsRef = collection(db, `retros/${retroId}/actionItems`);
@@ -36,7 +31,6 @@ export const addActionItemToFirestore = async (retroId, actionItem) => {
   }
 };
 
-// Fetch action items
 export const fetchActionItemsFromFirestore = async (retroId) => {
   try {
     const actionItemsRef = collection(db, `retros/${retroId}/actionItems`);

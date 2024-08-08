@@ -9,7 +9,7 @@ import Column from '@/components/Column';
 import ActionItems from '@/components/ActionItems';
 import { Button } from 'antd';
 import io from 'socket.io-client';
-
+import jsPDF from 'jspdf';
 const socket = io('http://localhost:4001');
 
 const RetroToolPage = ({ params }) => {
@@ -75,7 +75,17 @@ const RetroToolPage = ({ params }) => {
   };
 
   const exportPDF = () => {
-    // PDF oluşturma işlemi burada yapılır
+    const doc = new jsPDF();
+    doc.text("Retrospective Results", 10, 10);
+    doc.text("Comments:", 10, 20);
+    reduxComments.forEach((comment, index) => {
+      doc.text(`${index + 1}. ${comment.text} (Votes: ${comment.votes || 0})`, 10, 30 + index * 10);
+    });
+    doc.text("Action Items:", 10, 30 + reduxComments.length * 10);
+    actionItems.forEach((item, index) => {
+      doc.text(`${index + 1}. ${item.text}`, 10, 40 + reduxComments.length * 10 + index * 10);
+    });
+    doc.save("results.pdf");
   };
 
   const resetVotes = () => {

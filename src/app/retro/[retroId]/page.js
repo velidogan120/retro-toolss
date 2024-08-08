@@ -20,7 +20,7 @@ const RetroToolPage = ({ params }) => {
   const totalVotesUsed = useSelector(state => state.cards.totalVotesUsed);
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const [sessionId] = useState(() => `${Date.now()}-${Math.random()}`);
   useEffect(() => {
     const initialize = async () => {
       const comments = await fetchCommentsFromFirestore(retroId);
@@ -60,7 +60,7 @@ const RetroToolPage = ({ params }) => {
       alert('Comment cannot be empty');
       return;
     }
-    const newComment = { text, visible: step > 1, votes: 0, column };
+    const newComment = { text, visible: true, votes: 0, column, sessionId };
     await addCommentToFirestore(retroId, newComment);
     socket.emit('addComment', newComment);
   };
@@ -103,6 +103,7 @@ const RetroToolPage = ({ params }) => {
         column="workedWell"
         isEditable={step === 1}
         isVisible={step > 1}
+        sessionId={sessionId}
       />
       <Column 
         title="We could improve..." 
@@ -112,6 +113,7 @@ const RetroToolPage = ({ params }) => {
         column="couldImprove"
         isEditable={step === 1}
         isVisible={step > 1}
+        sessionId={sessionId}
       />
       <Column 
         title="I want to ask about..." 
@@ -121,6 +123,7 @@ const RetroToolPage = ({ params }) => {
         column="askAbout"
         isEditable={step === 1}
         isVisible={step > 1}
+        sessionId={sessionId}
       />
       {step >= 3 && (
         <ActionItems />

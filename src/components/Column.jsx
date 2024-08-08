@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input, Button, Card } from 'antd';
 import Comment from './Comment';
 
-const Column = ({ title, comments, handleAddComment, handleVote, column, isEditable, isVisible }) => {
+const Column = ({ title, comments, handleAddComment, handleVote, column, isEditable, isVisible, sessionId }) => {
   const [commentText, setCommentText] = useState('');
 
   const onAddComment = () => {
@@ -28,7 +28,7 @@ const Column = ({ title, comments, handleAddComment, handleVote, column, isEdita
           <Comment 
             key={index}
             comment={c}
-            isVisible={isVisible}
+            isVisible={isVisible || c.sessionId === sessionId}
             handleVote={() => handleVote(index, column)}
           />
         ))}

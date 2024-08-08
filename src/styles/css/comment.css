@@ -1,0 +1,43 @@
+.commentCard {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+.commentCard:hover {
+  transform: translateY(-5px);
+}
+.commentCard .commentAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.commentCard .commentAvatar img {
+  width: 100%;
+  height: auto;
+}
+.commentCard .commentText {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+}
+.commentCard .commentActions {
+  background-color: #1890ff;
+  border-color: #1890ff;
+  color: white;
+}
+.commentCard .commentActions:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+.commentCard .commentVotes {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #888;
+}
+
+/*# sourceMappingURL=comment.css.map */

@@ -23,8 +23,11 @@ const Results = () => {
   };
 
   return (
-    <div>
-      <Button onClick={exportPDF}>Export as PDF</Button>
+    <div className="main-container">
+      <div className="column">
+        <div className="column-title">Results</div>
+        <Button onClick={exportPDF} style={{ marginTop: '10px' }}>Export as PDF</Button>
+      </div>
     </div>
   );
 };

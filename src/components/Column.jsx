@@ -1,33 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Input, Button, Card } from 'antd';
 import Comment from './Comment';
-import { Input, Button } from 'antd';
 
-const Column = ({ title, comments, isEditable, isVisible, comment, setComment, handleAddComment, handleVote, column, sessionId, step }) => {
+const Column = ({ title, comments, handleAddComment, handleVote, column, isEditable, isVisible }) => {
+  const [commentText, setCommentText] = useState('');
+
+  const onAddComment = () => {
+    handleAddComment(column, commentText);
+    setCommentText('');
+  };
+
   return (
-    <div style={{ flex: 1, margin: '0 10px' }}>
-      <h3>{title}</h3>
+    <Card title={title} className="column">
       {isEditable && (
         <>
           <Input.TextArea 
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
             placeholder="Write your comment here..."
+            className="comment-text"
           />
-          <Button onClick={handleAddComment}>Add Comment</Button>
+          <Button onClick={onAddComment} style={{ marginTop: '10px' }}>Add Comment</Button>
         </>
       )}
       <div>
-        {comments.map((c) => (
+        {comments.map((c, index) => (
           <Comment 
-            key={c.id}
+            key={index}
             comment={c}
-            isVisible={isVisible || c.sessionId === sessionId}
-            handleVote={handleVote}
-            step={step}
+            isVisible={isVisible}
+            handleVote={() => handleVote(index, column)}
           />
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

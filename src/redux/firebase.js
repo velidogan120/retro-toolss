@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyDlf-EuSbJwO1fn3wurdIjTy0DK34Pc1tI",
+  authDomain: "retro-tools-caf65.firebaseapp.com",
+  projectId: "retro-tools-caf65",
+  storageBucket: "retro-tools-caf65.appspot.com",
+  messagingSenderId: "302928115858",
+  appId: "1:302928115858:web:8cb5995be2bf51276c8e4b"
 };
 
 const app = initializeApp(firebaseConfig);

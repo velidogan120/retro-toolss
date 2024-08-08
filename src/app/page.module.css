@@ -1,0 +1,112 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("/assets/img/background.svg") no-repeat center center;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.centerButton {
+  font-size: 3rem;
+  padding: 60px;
+  background-color: #ff9800;
+  border-radius: 30px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 20px;
+}
+
+.centerButton:hover {
+  background-color: #e68900 !important;
+}
+
+@media (max-width: 768px) {
+  .centerButton {
+    font-size: 1rem;
+    padding: 15px 30px;
+    margin: 10px;
+  }
+
+  .mainContainer {
+    padding: 10px;
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.column {
+  width: calc(25% - 12px);
+  margin-bottom: 20px;
+}
+
+.commentText {
+  margin-bottom: 10px;
+}
+
+.input {
+  margin-bottom: 10px;
+}
+
+.nextButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.exportButton,
+.resetButton {
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+@media (max-width: 1200px) {
+  .column {
+    width: calc(50% - 12px);
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .nextButton {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 20px;
+    align-self: flex-end;
+  }
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-avatar {
+  margin-right: 10px;
+}
+
+.comment-actions {
+  margin-left: auto;
+}
+
+.comment-delete {
+  margin-left: 10px;
+}

@@ -1,0 +1,33 @@
+.column-card {
+  .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .comment-text {
+    margin-top: 10px;
+  }
+
+  .comment-avatar {
+    margin-right: 10px;
+  }
+
+  .comment {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .comment-actions {
+    margin-left: auto;
+  }
+
+  .comment-votes {
+    margin-left: 10px;
+  }
+
+  .comment-delete {
+    margin-left: 10px;
+  }
+}

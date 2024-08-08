@@ -1,49 +1,19 @@
-.commentCard {
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s;
-  
-    &:hover {
-      transform: translateY(-5px);
-    }
-  
-    .commentAvatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-  
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-  
-    .commentText {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 8px;
-    }
-  
-    .commentActions {
-      background-color: #1890ff;
-      border-color: #1890ff;
-      color: white;
-  
-      &:hover {
-        background-color: #40a9ff;
-        border-color: #40a9ff;
-      }
-    }
-  
-    .commentVotes {
-      margin-top: 8px;
-      font-size: 14px;
-      color: #888;
-    }
-  }
-  
+.comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.commentAvatar {
+  margin-right: 10px;
+  width: 74px;  
+  height: 74px; 
+}
+
+.commentText {
+  flex: 1;
+}
+
+.commentActions {
+  margin-left: 10px;
+}

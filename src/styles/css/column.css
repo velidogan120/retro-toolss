@@ -1,0 +1,27 @@
+.column-card .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.column-card .comment-text {
+  margin-top: 10px;
+}
+.column-card .comment-avatar {
+  margin-right: 10px;
+}
+.column-card .comment {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.column-card .comment-actions {
+  margin-left: auto;
+}
+.column-card .comment-votes {
+  margin-left: 10px;
+}
+.column-card .comment-delete {
+  margin-left: 10px;
+}
+
+/*# sourceMappingURL=column.css.map */

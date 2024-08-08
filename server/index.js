@@ -19,6 +19,18 @@ io.on("connection", (socket) => {
     io.emit("commentAdded", data);
   });
 
+  socket.on("voteComment", (data) => {
+    io.emit("voteComment", data);
+  });
+
+  socket.on("resetVotes", () => {
+    io.emit("resetVotes");
+  });
+
+  socket.on("nextStep", () => {
+    io.emit("nextStep");
+  });
+
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });

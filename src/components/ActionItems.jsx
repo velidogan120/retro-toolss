@@ -1,33 +1,34 @@
-'use client';
 import React, { useState } from 'react';
-import { Input, Button, message, Card } from 'antd';
+import { Input, Button, Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addActionItem } from '../redux/slices/card';
+import { addActionItem } from '@/redux/slices/card';
+import { addActionItemToFirestore } from '@/services/firestoreService';
+import styles from '@/styles/css/module.css';
 
-const ActionItems = () => {
-  const [action, setAction] = useState('');
-  const actionItems = useSelector(state => state.cards.actionItems);
+const ActionItems = ({ retroId }) => {
+  const [actionText, setActionText] = useState('');
+  const actionItems = useSelector((state) => state.cards.actionItems);
   const dispatch = useDispatch();
 
-  const handleAddAction = () => {
-    if (!action.trim()) {
-      message.error('Action item cannot be empty');
+  const handleAddActionItem = async () => {
+    if (!actionText.trim()) {
+      alert('Action item cannot be empty');
       return;
     }
-
-    const actionItem = { text: action, column: 'actionItems' };
-    dispatch(addActionItem(actionItem));
-    setAction('');
+    const newActionItem = { text: actionText };
+    await addActionItemToFirestore(retroId, newActionItem);
+    dispatch(addActionItem(newActionItem));
+    setActionText('');
   };
 
   return (
-    <Card title="Action Items" className="column">
-      <Input 
-        value={action}
-        onChange={(e) => setAction(e.target.value)}
+    <Card title="Add Action Item">
+      <Input.TextArea
+        value={actionText}
+        onChange={(e) => setActionText(e.target.value)}
         placeholder="Write action item here..."
       />
-      <Button onClick={handleAddAction} style={{ marginTop: '10px' }}>Add Action Item</Button>
+      <Button onClick={handleAddActionItem} style={{ marginTop: '10px' }}>Add Action Item</Button>
       <div>
         {actionItems.map((item, index) => (
           <div key={index}>{item.text}</div>

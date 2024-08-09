@@ -88,24 +88,30 @@ const RetroToolPage = ({ params }) => {
 
   const exportPDF = () => {
     const doc = new jsPDF();
-    doc.text("Retrospective Results", 10, 10);
-    doc.text("Comments:", 10, 20);
-    reduxComments.forEach((comment, index) => {
-      doc.text(
-        `${index + 1}. ${comment.text} (Votes: ${comment.votes || 0})`,
-        10,
-        30 + index * 10
-      );
-    });
-    doc.text("Action Items:", 10, 30 + reduxComments.length * 10);
+    doc.setFontSize(12); // Adjust font size if needed
+    let y = 10; // Starting Y position for the first line
+
+    // Action items section
+    doc.text("Action Items:", 10, y);
+    y += 10;
+
     actionItems.forEach((item, index) => {
-      doc.text(
-        `${index + 1}. ${item.text}`,
-        10,
-        40 + reduxComments.length * 10 + index * 10
-      );
+      const text = `${index + 1}. ${item.text}`;
+      const lines = doc.splitTextToSize(text, 180); // 180 mm wide
+
+      // Check if the current Y position is near the bottom of the page, add a new page if needed
+      if (y + lines.length * 10 > 290) {
+        doc.addPage();
+        y = 10; // Reset Y position for new page
+      }
+
+      lines.forEach((line) => {
+        doc.text(line, 10, y);
+        y += 10; // Move Y position down for the next line
+      });
     });
-    doc.save("results.pdf");
+
+    doc.save("action_items.pdf");
   };
 
   const resetVotes = () => {

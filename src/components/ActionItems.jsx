@@ -22,16 +22,18 @@ const ActionItems = ({ retroId }) => {
   };
 
   return (
-    <Card title="Add Action Item">
+    <Card title="Add Action Item" className={styles.actionCard}>
       <Input.TextArea
         value={actionText}
         onChange={(e) => setActionText(e.target.value)}
         placeholder="Write action item here..."
       />
       <Button onClick={handleAddActionItem} style={{ marginTop: '10px' }}>Add Action Item</Button>
-      <div>
+      <div className={styles.actionItemsList}>
         {actionItems.map((item, index) => (
-          <div key={index}>{item.text}</div>
+          <div key={index} className={styles.actionItemText} title={item.text}>
+            {item.text}
+          </div>
         ))}
       </div>
     </Card>

@@ -29,6 +29,8 @@
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 0;
+  flex: 1;
+  min-width: 300px;
 }
 
 .orangeCard {
@@ -73,6 +75,28 @@
   margin-left: 10px;
 }
 
+.actionCard {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.actionItemsList {
+  margin-top: 10px;
+}
+
+.actionItemText {
+  background-color: #fff;
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .input {
   margin-bottom: 10px;
 }
@@ -93,14 +117,14 @@
   color: #fff;
 }
 
-.scrollable-text {
+.commentText {
   word-wrap: break-word;
   white-space: pre-wrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.scrollable-text span {
+.commentText span {
   display: inline-block;
   word-break: break-word;
 }

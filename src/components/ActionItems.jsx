@@ -3,7 +3,7 @@ import { Input, Button, Card } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addActionItem } from '@/redux/slices/card';
 import { addActionItemToFirestore } from '@/services/firestoreService';
-import styles from '@/styles/css/module.css';
+import styles from '@/styles/css/module.module.css';
 
 const ActionItems = ({ retroId }) => {
   const [actionText, setActionText] = useState('');

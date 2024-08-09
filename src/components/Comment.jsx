@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Skeleton } from 'antd';
 import { DeleteOutlined, LikeOutlined } from '@ant-design/icons';
-import styles from '@/styles/css/module.css';
+import styles from '@/styles/css/module.module.css';
 
 const Comment = ({ comment, isVisible, handleVote, showDelete }) => {
   const [userImg, setUserImg] = useState('');

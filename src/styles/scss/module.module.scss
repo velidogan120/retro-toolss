@@ -1,0 +1,156 @@
+.mainContainer {
+  padding: 20px;
+  position: relative;
+}
+
+.topBar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 60px; // Butonla kartlar arasında boşluk bırakmak için
+}
+
+.column {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden; // Prevent overflow
+}
+
+.cardHeader {
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e5e5e5;
+
+  .windowControls {
+    display: flex;
+    gap: 8px;
+
+    div {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .red {
+      background-color: #ff5f56;
+    }
+
+    .yellow {
+      background-color: #ffbd2e;
+    }
+
+    .green {
+      background-color: #27c93f;
+    }
+  }
+}
+
+.cardBody {
+  padding: 20px;
+  height: 100%; // Ensure card height is maintained
+  overflow-y: auto; // Enable scrolling if content is too long
+  word-wrap: break-word; // Ensure long words wrap
+}
+
+.cardFooter {
+  padding: 10px;
+  text-align: right;
+}
+
+.scrollableText {
+  max-height: 150px; // Limit height of the text area
+  overflow-y: auto; // Add scroll if content exceeds max-height
+}
+
+// Her kart için farklı renkler
+.orangeCard {
+  background-color: #ffebcc;
+}
+
+.blueCard {
+  background-color: #cce5ff;
+}
+
+.greenCard {
+  background-color: #ccffcc;
+}
+
+.purpleCard {
+  background-color: #e5ccff;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.commentAvatar {
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 2px solid #1890ff;
+}
+
+.commentText {
+  flex-grow: 1;
+}
+
+.commentActions {
+  margin-left: auto;
+}
+
+.commentVotes {
+  margin-left: 10px;
+}
+
+.commentDelete {
+  margin-left: 10px;
+}
+
+.input {
+  margin-bottom: 10px;
+}
+
+.nextButton {
+  position: relative;
+}
+
+.exportButton,
+.resetButton {
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+@media (max-width: 1200px) {
+  .column {
+    width: calc(50% - 12px);
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .nextButton {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 20px;
+    align-self: flex-end;
+  }
+}

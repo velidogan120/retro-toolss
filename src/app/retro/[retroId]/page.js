@@ -107,7 +107,7 @@ const RetroToolPage = ({ params }) => {
   };
 
   return (
-    <div className={styles.main-container}>
+    <div className={styles.mainContainer}>
       <div className={styles.topbar}>
         {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }}>Next Step</Button>}
         {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}

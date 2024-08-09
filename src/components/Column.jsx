@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Button, Card } from 'antd';
 import Comment from './Comment';
-import styles from '@/styles/css/module.css';
+import styles from '@/styles/css/module.module.css';
 const Column = ({ title, comments, handleAddComment, handleVote, handleDelete, column, isEditable, isVisible, sessionId, step }) => {
   const [commentText, setCommentText] = useState('');
 

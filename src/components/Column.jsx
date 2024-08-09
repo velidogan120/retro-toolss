@@ -3,7 +3,7 @@ import { Input, Button, Card } from 'antd';
 import Comment from './Comment';
 import styles from '@/styles/css/module.module.css';
 
-const Column = ({ title, comments, handleAddComment, handleVote, column, isEditable, isVisible, step }) => {
+const Column = ({ title, comments, handleAddComment, handleVote, column, isEditable, isVisible, step, colorClass }) => {
   const [commentText, setCommentText] = useState('');
 
   const onAddComment = () => {
@@ -12,7 +12,7 @@ const Column = ({ title, comments, handleAddComment, handleVote, column, isEdita
   };
 
   return (
-    <Card title={title} className={styles.column}>
+    <Card title={title} className={`${styles.column} ${colorClass}`}>
       {isEditable && (
         <>
           <Input.TextArea 

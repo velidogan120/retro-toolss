@@ -1,10 +1,38 @@
+@font-face {
+  font-family: "Edu AU VIC WA NT Hand";
+  src: url("../fonts/static/EduAUVICWANTHand-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Edu AU VIC WA NT Hand";
+  src: url("../fonts/static/EduAUVICWANTHand-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Edu AU VIC WA NT Hand";
+  src: url("../fonts/static/EduAUVICWANTHand-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Edu AU VIC WA NT Hand";
+  src: url("../fonts/static/EduAUVICWANTHand-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
 .mainContainer {
   padding: 0;
   margin-bottom: 2rem;
 }
 
 .header {
-  background-color: #f6f6f5;
+  background-color: #ffffff;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -16,6 +44,12 @@
   left: 0;
   z-index: 1000;
 }
+.title {
+  font-family: "Edu AU VIC WA NT Hand", sans-serif;
+  font-weight: 500 !important;
+  font-size: 2.5rem !important;
+  color: #000000;
+}
 
 .row {
   display: flex;
@@ -25,12 +59,11 @@
 }
 
 .column {
-  background-color: #ffebcc;
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 0;
   flex: 1;
-  min-width: 300px;  // Adjust as needed
+  min-width: 300px;
 }
 
 .orangeCard {
@@ -49,7 +82,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  background: #fafafa;
+  background: #ffffff;
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
@@ -60,7 +93,7 @@
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  border: 1px solid #ababab;
+  border: 1px solid #e1dfdf;
 }
 .commentText {
   flex-grow: 1;
@@ -73,7 +106,7 @@
 }
 
 .actionCard {
-  background-color: #f9f9f9;
+  background-color: #e7d2fd;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -89,9 +122,9 @@
   margin-bottom: 5px;
   border-radius: 4px;
   border: 1px solid #ddd;
-  white-space: nowrap; // Ensure single-line text
-  overflow: hidden; // Hide overflow text
-  text-overflow: ellipsis; // Show ellipsis (...) for truncated text
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .input {
@@ -103,15 +136,15 @@
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 8px 16px;
+  padding: 22px;
   cursor: pointer;
   transition: background-color 0.3s;
   margin-right: 2rem;
 }
 
 .nextButton:hover {
-  background-color: #e68900;
-  color: #fff;
+  background-color: #e68900 !important;
+  color: #fff !important;
 }
 
 .commentText {
@@ -136,8 +169,16 @@
 }
 
 .exportButton {
+  background-color: #ff9800;
+  color: #fff;
   margin-top: 20px;
-  margin-right: 10px;
+  margin-right: 2rem;
+  padding: 22px;
+  border: none;
+}
+.exportButton:hover {
+  background-color: #e68900 !important;
+  color: #fff !important;
 }
 
 @media (max-width: 1200px) {

@@ -88,26 +88,27 @@ const RetroToolPage = ({ params }) => {
 
   const exportPDF = () => {
     const doc = new jsPDF();
-    doc.setFontSize(12); // Adjust font size if needed
-    let y = 10; // Starting Y position for the first line
 
-    // Action items section
+    doc.setFont("Edu AU VIC WA NT Hand", "sans-serif");
+
+    doc.setFontSize(12);
+    let y = 10;
+
     doc.text("Action Items:", 10, y);
     y += 10;
 
     actionItems.forEach((item, index) => {
       const text = `${index + 1}. ${item.text}`;
-      const lines = doc.splitTextToSize(text, 180); // 180 mm wide
+      const lines = doc.splitTextToSize(text, 180);
 
-      // Check if the current Y position is near the bottom of the page, add a new page if needed
       if (y + lines.length * 10 > 290) {
         doc.addPage();
-        y = 10; // Reset Y position for new page
+        y = 10;
       }
 
       lines.forEach((line) => {
         doc.text(line, 10, y);
-        y += 10; // Move Y position down for the next line
+        y += 10;
       });
     });
 
@@ -134,7 +135,7 @@ const RetroToolPage = ({ params }) => {
           alt="Logo"
           style={{ height: "140px" }}
         />
-        <div className="title">RetroMap</div>
+        <div className={styles.title}>RetroMap</div>
         <div>
           {step < 4 && (
             <Button className={styles.nextButton} onClick={nextStep}>

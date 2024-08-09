@@ -103,7 +103,7 @@ const RetroToolPage = ({ params }) => {
 
   return (
     <div className={styles.mainContainer}>
-      <Image src='/assets/img/logo2.jpg' className={styles.logo} width={75}></Image>
+      <Image src='/assets/img/logo.jpg' className={styles.logo} width={75}></Image>
       <div className={styles.topBar}>
         {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }}>Next Step</Button>}
         {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}

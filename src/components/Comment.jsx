@@ -7,15 +7,15 @@ const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
 
   useEffect(() => {
     const images = [
-      '/assets/img/pokemon1.jpg',
-      '/assets/img/pokemon2.jpg',
-      '/assets/img/pokemon3.jpg',
-      '/assets/img/pokemon4.jpg',
-      '/assets/img/1.jpg',
-      '/assets/img/2.jpg',
-      '/assets/img/3.jpg',
-      '/assets/img/4.jpg',
-      '/assets/img/5.jpg',
+      '/assets/img/avatar1.jpg',
+      '/assets/img/avatar2.jpg',
+      '/assets/img/avatar3.jpg',
+      '/assets/img/avatar4.jpg',
+      '/assets/img/avatar5.jpg',
+      '/assets/img/avatar6.jpg',
+      '/assets/img/avatar7.jpg',
+      '/assets/img/avatar8.jpg',
+      '/assets/img/avatar9.jpg',
     ];
     const randomImage = images[Math.floor(Math.random() * images.length)];
     setUserImg(randomImage);
@@ -27,14 +27,14 @@ const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
 
   return (
     <div className="comment">
-      <Avatar src={userImg} alt="User Avatar" className="comment-avatar" />
-      <span className="comment-text">{comment.text}</span>
+      <Avatar src={userImg} alt="User Avatar" className={styles['commentAvatar']} />
+      <span className={styles['commentText']}>{comment.text}</span>
       {step === 1 ? (
         <Button onClick={handleDelete} className={styles.commentDelete}>Delete</Button>
       ) : (
         <>
           <Button onClick={handleVote} className={styles.commentVotes}><AiOutlineLike/></Button>
-          <span className="comment-votes">{comment.votes || 0}</span>
+          <span className={styles['commentText']}>{comment.votes || 0}</span>
         </>
       )}
     </div>

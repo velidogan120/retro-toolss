@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Skeleton } from 'antd';
-
+import styles from '@/styles/css/module.module.css';
 const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
   const [userImg, setUserImg] = useState('');
 

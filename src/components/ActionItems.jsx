@@ -5,6 +5,7 @@ import { addActionItem } from '../redux/slices/card';
 import { addActionItemToFirestore } from '@/services/firestoreService';
 import { deleteActionItemFromFirestore } from '@/services/firestoreService';
 import { deleteActionItem } from '../redux/slices/card';
+import styles from '@/styles/css/module.module.css';
 const ActionItems = ({retroId}) => {
   const [action, setAction] = useState('');
   const actionItems = useSelector(state => state.cards.actionItems);

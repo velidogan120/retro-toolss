@@ -6,7 +6,7 @@ import { addComment, voteComment, addActionItem, resetVotes, deleteComment } fro
 import { fetchCommentsFromFirestore, fetchActionItemsFromFirestore, addCommentToFirestore, addActionItemToFirestore, deleteCommentFromFirestore } from '@/services/firestoreService';
 import Column from '@/components/Column';
 import ActionItems from '@/components/ActionItems';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Image, Row } from 'antd';
 import io from 'socket.io-client';
 import jsPDF from 'jspdf';
 import styles from "@/styles/css/module.module.css";
@@ -101,17 +101,12 @@ const RetroToolPage = ({ params }) => {
     doc.save("results.pdf");
   };
 
-  const resetVotes = () => {
-    dispatch(resetVotes());
-    socket.emit('resetVotes');
-  };
-
   return (
     <div className={styles.mainContainer}>
+      <Image src='/assets/img/logo2.jpg' className={styles.logo} width={75}></Image>
       <div className={styles.topBar}>
         {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }}>Next Step</Button>}
         {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}
-        {step === 4 && <Button onClick={resetVotes} style={{ marginTop: '20px' }}>Reset Votes</Button>}
       </div>
       <Row gutter={16} className={styles.row}>
         <Col xs={24} sm={12} md={6}>
@@ -126,7 +121,7 @@ const RetroToolPage = ({ params }) => {
             isVisible={step > 1}
             sessionId={sessionId}
             step={step}
-            colorClass={styles.orangeCard} 
+            colorClass={styles.blueCard} 
           />
         </Col>
         <Col xs={24} sm={12} md={6}>
@@ -156,7 +151,7 @@ const RetroToolPage = ({ params }) => {
             isVisible={step > 1}
             sessionId={sessionId}
             step={step}
-            colorClass={styles.orangeCard} 
+            colorClass={styles.greenCard} 
           />
         </Col>
         {step >= 3 && (

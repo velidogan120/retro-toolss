@@ -36,13 +36,6 @@ const cardSlice = createSlice({
     deleteActionItem: (state, action) => {
       state.actionItems = state.actionItems.filter(item => item.id !== action.payload);
     },
-    resetVotes: (state) => {
-      state.totalVotesUsed = 0;
-      state.comments.forEach(comment => {
-        comment.votes = 0;
-        comment.hasVoted = false;
-      });
-    },
   },
 });
 

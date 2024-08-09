@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Skeleton } from 'antd';
 import styles from '@/styles/css/module.module.css';
+import { AiOutlineLike } from "react-icons/ai";
 const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
   const [userImg, setUserImg] = useState('');
 
@@ -29,10 +30,10 @@ const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
       <Avatar src={userImg} alt="User Avatar" className="comment-avatar" />
       <span className="comment-text">{comment.text}</span>
       {step === 1 ? (
-        <Button onClick={handleDelete} className="comment-actions">Delete</Button>
+        <Button onClick={handleDelete} className={styles.commentDelete}>Delete</Button>
       ) : (
         <>
-          <Button onClick={handleVote} className="comment-actions">Vote</Button>
+          <Button onClick={handleVote} className={styles.commentVotes}><AiOutlineLike/></Button>
           <span className="comment-votes">{comment.votes || 0}</span>
         </>
       )}

@@ -8,12 +8,14 @@
   top: 10px;
   right: 10px;
 }
-
+.logo{
+  border-radius: 50%;
+}
 .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .column {
@@ -102,13 +104,22 @@
 .commentActions {
   margin-left: auto;
 }
-
+.addBtn{
+  margin: 10px 0;
+  background: #e91e63;
+  color: white;
+  width: 100%;
+}
 .commentVotes {
-  margin-left: 10px;
+  margin-left: auto;
+  background: rgb(20, 220, 80);
+  color: white;
 }
 
 .commentDelete {
-  margin-left: 10px;
+  margin-left: auto;
+  background: crimson;
+  color: white;
 }
 
 .input {

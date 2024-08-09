@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input, Button, Card } from 'antd';
 import Comment from './Comment';
 import styles from '@/styles/css/module.module.css';
-const Column = ({ title, comments, handleAddComment, handleVote, handleDelete, column, isEditable, isVisible, sessionId, step }) => {
+const Column = ({ title, comments, handleAddComment, handleVote, handleDelete, column, isEditable, isVisible, sessionId, step,colorClass }) => {
   const [commentText, setCommentText] = useState('');
 
   const onAddComment = () => {
@@ -11,7 +11,7 @@ const Column = ({ title, comments, handleAddComment, handleVote, handleDelete, c
   };
 
   return (
-    <Card title={title} className={styles.column}>
+    <Card title={title} className={`${styles.column} ${colorClass}`}>
       {isEditable && (
         <>
           <Input.TextArea 
@@ -20,7 +20,7 @@ const Column = ({ title, comments, handleAddComment, handleVote, handleDelete, c
             placeholder="Write your comment here..."
             className={styles['input']}
           />
-          <Button onClick={onAddComment} style={{ marginTop: '10px' }}>Add Comment</Button>
+          <Button onClick={onAddComment} className={styles.addBtn}>Add Comment</Button>
         </>
       )}
       <div>

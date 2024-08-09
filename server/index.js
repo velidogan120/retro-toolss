@@ -31,10 +31,6 @@ io.on("connection", (socket) => {
     io.emit("commentDeleted", commentId);
   });
 
-  socket.on("resetVotes", () => {
-    io.emit("resetVotes");
-  });
-
   socket.on("nextStep", () => {
     io.emit("nextStep");
   });

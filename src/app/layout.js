@@ -3,6 +3,7 @@ import "../styles/css/main.css";
 import "../styles/css/comment.css";
 import { Provider } from "react-redux";
 import store from "../redux/store";
+import "./globals.css"
 
 export default function RootLayout({ children }) {
   return (

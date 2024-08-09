@@ -6,10 +6,12 @@ import { addComment, voteComment, addActionItem, resetVotes, deleteComment } fro
 import { fetchCommentsFromFirestore, fetchActionItemsFromFirestore, addCommentToFirestore, addActionItemToFirestore, deleteCommentFromFirestore } from '@/services/firestoreService';
 import Column from '@/components/Column';
 import ActionItems from '@/components/ActionItems';
-import { Button, Col, Image, Row } from 'antd';
+import { Button, Col, Image, Row,Layout } from 'antd';
 import io from 'socket.io-client';
 import jsPDF from 'jspdf';
 import styles from "@/styles/css/module.module.css";
+
+const { Header } = Layout;
 const socket = io('http://localhost:4001');
 
 const RetroToolPage = ({ params }) => {
@@ -103,11 +105,14 @@ const RetroToolPage = ({ params }) => {
 
   return (
     <div className={styles.mainContainer}>
-      <Image src='/assets/img/logo.jpg' className={styles.logo} width={75}></Image>
-      <div className={styles.topBar}>
-        {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }}>Next Step</Button>}
-        {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}
-      </div>
+      <Header className={styles.header} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", }}>
+        <Image src='/assets/img/logo.jpg' className={styles.logo} width={75}></Image>
+        <div className="title">RetroMap</div>      
+        <div className={styles.topBar}>
+          {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }}>Next Step</Button>}
+          {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}
+        </div>
+      </Header>
       <Row gutter={16} className={styles.row}>
         <Col xs={24} sm={12} md={6}>
           <Column 

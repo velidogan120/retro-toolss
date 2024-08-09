@@ -9,15 +9,15 @@ const Comment = ({ comment, isVisible, handleVote, showDelete }) => {
 
   useEffect(() => {
     const images = [
-      '/assets/img/pokemon1.jpg',
-      '/assets/img/pokemon2.jpg',
-      '/assets/img/pokemon3.jpg',
-      '/assets/img/pokemon4.jpg',
-      '/assets/img/1.jpg',
-      '/assets/img/2.jpg',
-      '/assets/img/3.jpg',
-      '/assets/img/4.jpg',
-      '/assets/img/5.jpg',
+      '/assets/img/avatar1.jpg',
+      '/assets/img/avatar2.jpg',
+      '/assets/img/avatar3.jpg',
+      '/assets/img/avatar4.jpg',
+      '/assets/img/avatar5.jpg',
+      '/assets/img/avatar6.jpg',
+      '/assets/img/avatar7.jpg',
+      '/assets/img/avatar8.jpg',
+      '/assets/img/avatar9.jpg',
     ];
     const randomImage = images[Math.floor(Math.random() * images.length)];
     setUserImg(randomImage);
@@ -29,18 +29,18 @@ const Comment = ({ comment, isVisible, handleVote, showDelete }) => {
 
   return (
     <div className={styles.comment}>
-      <Avatar src={userImg} alt="User Avatar" className={styles['comment-avatar']} />
+      <Avatar src={userImg} alt="User Avatar" className={styles['commentAvatar']} />
       {isVisible ? (
         <>
-          <span className={styles['comment-text']}>{comment.text}</span>
-          <Button icon={<LikeOutlined />} onClick={handleVote} className={styles['comment-actions']}></Button>
-          <span className={styles['comment-votes']}>{comment.votes || 0}</span>
+          <span className={styles['commentText']}>{comment.text}</span>
+          <Button icon={<LikeOutlined />} onClick={handleVote} className={styles['commentActions']}></Button>
+          <span className={styles['commentVotes']}>{comment.votes || 0}</span>
           {showDelete && (
-            <Button icon={<DeleteOutlined />} className={styles['comment-delete']} />
+            <Button icon={<DeleteOutlined />} className={styles['commentDelete']} />
           )}
         </>
       ) : (
-        <Skeleton active className={styles['comment-text']} />
+        <Skeleton active className={styles['commentText']} />
       )}
     </div>
   );

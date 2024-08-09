@@ -76,7 +76,7 @@
 }
 
 .greenCard {
-  background-color: #ccffcc;
+  background-color: #ceface;
 }
 
 .purpleCard {
@@ -91,8 +91,10 @@
 
 .commentAvatar {
   margin-right: 10px;
-  border-radius: 50%;
-  border: 2px solid #1890ff;
+  border-radius: 100%;
+  width: 65px;
+  height: 65px;
+  border: 1px solid #91b4d3;
 }
 
 .commentText {
@@ -117,6 +119,14 @@
 
 .nextButton {
   position: relative;
+  background: rgb(227, 106, 13);
+  color: #fff;
+  border: none;
+}
+
+.nextButton:hover {
+  background: rgb(240, 142, 67) !important;
+  color: #fff !important;
 }
 
 .exportButton,

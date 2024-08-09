@@ -125,9 +125,6 @@ const RetroToolPage = ({ params }) => {
             <Button className={styles.exportButton} onClick={exportPDF}>
               Export as PDF
             </Button>
-            <Button className={styles.resetButton} onClick={resetVotes}>
-              Reset Votes
-            </Button>
           </>
         )}
       </div>
@@ -142,7 +139,7 @@ const RetroToolPage = ({ params }) => {
             isEditable={step === 1}
             isVisible={step > 1}
             step={step}
-            colorClass={styles.orangeCard} // Farklı renk sınıfları
+            colorClass={styles.orangeCard}
           />
         </Col>
         <Col xs={24} sm={12} md={6}>
@@ -155,7 +152,7 @@ const RetroToolPage = ({ params }) => {
             isEditable={step === 1}
             isVisible={step > 1}
             step={step}
-            colorClass={styles.blueCard} // Farklı renk sınıfları
+            colorClass={styles.blueCard}
           />
         </Col>
         <Col xs={24} sm={12} md={6}>
@@ -168,7 +165,7 @@ const RetroToolPage = ({ params }) => {
             isEditable={step === 1}
             isVisible={step > 1}
             step={step}
-            colorClass={styles.greenCard} // Farklı renk sınıfları
+            colorClass={styles.greenCard}
           />
         </Col>
         {step >= 3 && (

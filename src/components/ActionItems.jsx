@@ -29,16 +29,16 @@ const ActionItems = ({retroId}) => {
   };
 
   return (
-    <Card title="Action Items">
+    <Card title="Action Items" className={styles.actionCard}>
       <Input 
         value={action}
         onChange={(e) => setAction(e.target.value)}
         placeholder="Write action item here..."
       />
       <Button onClick={handleAddAction} style={{ marginTop: '10px' }}>Add Action Item</Button>
-      <div>
+      <div className={styles.actionItemList}>
         {actionItems.map((item, index) => (
-          <div key={index}>
+          <div key={index} className={styles.actionCard}>
             {item.text}
             <Button onClick={() => handleDeleteActionItem(item.id)} style={{ marginLeft: '10px' }}>Delete</Button>
           </div>

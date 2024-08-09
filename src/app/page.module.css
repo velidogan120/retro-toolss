@@ -33,10 +33,21 @@
   }
 
   .mainContainer {
-    padding: 10px;
+    background: url("/assets/img/bg1.svg") no-repeat center center;
   }
 }
 
+@media (max-width: 425px) {
+  .centerButton {
+    font-size: 0.5rem;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .mainContainer {
+    background: url("/assets/img/bg2.svg") no-repeat center center;
+  }
+}
 .row {
   display: flex;
   flex-wrap: wrap;

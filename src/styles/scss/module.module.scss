@@ -13,13 +13,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 60px; // Butonla kartlar arasında boşluk bırakmak için
+  margin-top: 60px; 
 }
 
 .column {
   margin-bottom: 20px;
   border-radius: 8px;
-  overflow: hidden; // Prevent overflow
+  overflow: hidden; 
 }
 
 .cardHeader {
@@ -57,9 +57,9 @@
 
 .cardBody {
   padding: 20px;
-  height: 100%; // Ensure card height is maintained
-  overflow-y: auto; // Enable scrolling if content is too long
-  word-wrap: break-word; // Ensure long words wrap
+  height: 100%; 
+  overflow-y: auto; 
+  word-wrap: break-word; 
 }
 
 .cardFooter {
@@ -68,11 +68,11 @@
 }
 
 .scrollableText {
-  max-height: 150px; // Limit height of the text area
-  overflow-y: auto; // Add scroll if content exceeds max-height
+  max-height: 150px; 
+  overflow-y: auto; 
 }
 
-// Her kart için farklı renkler
+
 .orangeCard {
   background-color: #ffebcc;
 }

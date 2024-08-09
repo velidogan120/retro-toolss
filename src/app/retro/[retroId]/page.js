@@ -16,11 +16,12 @@ import {
 } from "@/services/firestoreService";
 import Column from "@/components/Column";
 import ActionItems from "@/components/ActionItems";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Layout } from "antd";
 import io from "socket.io-client";
 import jsPDF from "jspdf";
 import styles from "@/styles/css/module.module.css";
 
+const { Header } = Layout;
 const socket = io("http://localhost:4001");
 
 const RetroToolPage = ({ params }) => {
@@ -114,20 +115,35 @@ const RetroToolPage = ({ params }) => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.topBar}>
-        {step < 4 && (
-          <Button className={styles.nextButton} onClick={nextStep}>
-            Next Step
-          </Button>
-        )}
-        {step === 4 && (
-          <>
-            <Button className={styles.exportButton} onClick={exportPDF}>
-              Export as PDF
+      <Header
+        className={styles.header}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <img
+          src="/assets/img/logo.svg"
+          alt="Logo"
+          style={{ height: "140px" }}
+        />
+        <div className="title">RetroMap</div>
+        <div>
+          {step < 4 && (
+            <Button className={styles.nextButton} onClick={nextStep}>
+              Next Step
             </Button>
-          </>
-        )}
-      </div>
+          )}
+          {step === 4 && (
+            <>
+              <Button className={styles.exportButton} onClick={exportPDF}>
+                Export as PDF
+              </Button>
+            </>
+          )}
+        </div>
+      </Header>
       <Row gutter={16} className={styles.row}>
         <Col xs={24} sm={12} md={6}>
           <Column

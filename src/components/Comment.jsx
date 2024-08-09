@@ -34,7 +34,7 @@ const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
       ) : (
         <>
           <Button onClick={handleVote} className={styles.commentVotes}><AiOutlineLike/></Button>
-          <span className={styles['commentText']}>{comment.votes || 0}</span>
+          <span>{comment.votes || 0}</span>
         </>
       )}
     </div>

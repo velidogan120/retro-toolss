@@ -99,10 +99,6 @@
   border: 1px solid #91b4d3;
 }
 
-.commentText {
-  flex-grow: 1;
-}
-
 .commentActions {
   margin-left: auto;
 }
@@ -111,9 +107,10 @@
   background: #e91e63;
   color: white;
   width: 100%;
+  flex: 1;
 }
 .commentVotes {
-  margin-left: auto;
+  margin: 0 10px 0 auto;
   background: rgb(20, 220, 80);
   color: white;
 }

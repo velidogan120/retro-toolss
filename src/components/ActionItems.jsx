@@ -29,7 +29,7 @@ const ActionItems = ({retroId}) => {
   };
 
   return (
-    <Card title="Action Items" className={styles.actionCard}>
+    <Card title="Add Action Item" className={styles.actionCard}>
       <Input 
         value={action}
         onChange={(e) => setAction(e.target.value)}
@@ -38,7 +38,7 @@ const ActionItems = ({retroId}) => {
       <Button onClick={handleAddAction} style={{ marginTop: '10px' }}>Add Action Item</Button>
       <div className={styles.actionItemList}>
         {actionItems.map((item, index) => (
-          <div key={index} className={styles.actionCard}>
+          <div key={index} className={styles.actionItemText}>
             {item.text}
             <Button onClick={() => handleDeleteActionItem(item.id)} style={{ marginLeft: '10px' }}>Delete</Button>
           </div>

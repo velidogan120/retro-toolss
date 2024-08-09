@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Skeleton } from 'antd';
 import styles from '@/styles/css/module.module.css';
-import { AiOutlineLike } from "react-icons/ai";
+import {  AiOutlineLike } from "react-icons/ai";
+import { DeleteOutlined } from '@ant-design/icons';
+
 const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
   const [userImg, setUserImg] = useState('');
 
@@ -26,11 +28,11 @@ const Comment = ({ comment, isVisible, handleVote, handleDelete, step }) => {
   }
 
   return (
-    <div className="comment">
+    <div className={styles.comment}>
       <Avatar src={userImg} alt="User Avatar" className={styles['commentAvatar']} />
-      <span className={styles['commentText']}>{comment.text}</span>
+      <span className={styles ['commentText']}>{comment.text}</span>
       {step === 1 ? (
-        <Button onClick={handleDelete} className={styles.commentDelete}>Delete</Button>
+        <Button  onClick={handleDelete} className={styles.commentDelete}><DeleteOutlined /> </Button>
       ) : (
         <>
           <Button onClick={handleVote} className={styles.commentVotes}><AiOutlineLike/></Button>

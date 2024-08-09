@@ -78,6 +78,10 @@ const RetroToolPage = ({ params }) => {
   };
 
   const handleVote = (index, column) => {
+    if (step >= 3) {
+      alert("Oy kullanma işlemi sona ermiştir.");
+      return;
+    }
     dispatch(voteComment({ index, column }));
     socket.emit("voteComment", { index, column });
   };
@@ -161,7 +165,7 @@ const RetroToolPage = ({ params }) => {
             column="workedWell"
             isEditable={step === 1}
             isVisible={step > 1}
-            step={step}
+            isVotingEnabled={step < 3} // Oy verme işlemi 3. aşamada devre dışı kalacak
             colorClass={styles.orangeCard}
           />
         </Col>
@@ -174,7 +178,7 @@ const RetroToolPage = ({ params }) => {
             column="couldImprove"
             isEditable={step === 1}
             isVisible={step > 1}
-            step={step}
+            isVotingEnabled={step < 3} // Oy verme işlemi 3. aşamada devre dışı kalacak
             colorClass={styles.blueCard}
           />
         </Col>
@@ -187,7 +191,7 @@ const RetroToolPage = ({ params }) => {
             column="askAbout"
             isEditable={step === 1}
             isVisible={step > 1}
-            step={step}
+            isVotingEnabled={step < 3} // Oy verme işlemi 3. aşamada devre dışı kalacak
             colorClass={styles.greenCard}
           />
         </Col>

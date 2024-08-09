@@ -9,7 +9,7 @@ import ActionItems from '@/components/ActionItems';
 import { Button, Col, Row } from 'antd';
 import io from 'socket.io-client';
 import jsPDF from 'jspdf';
-import styles from "@/styles/css/module.css";
+import styles from "@/styles/css/module.module.css";
 const socket = io('http://localhost:4001');
 
 const RetroToolPage = ({ params }) => {
@@ -107,9 +107,14 @@ const RetroToolPage = ({ params }) => {
   };
 
   return (
-    <div className={styles["main-container"]}>
+    <div className={styles.main-container}>
+      <div className={styles.topbar}>
+        {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }}>Next Step</Button>}
+        {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}
+        {step === 4 && <Button onClick={resetVotes} style={{ marginTop: '20px' }}>Reset Votes</Button>}
+      </div>
       <Row gutter={16} className={styles.row}>
-        <Col xs={24} sm={12} md={6} className={styles.column}>
+        <Col xs={24} sm={12} md={6}>
           <Column 
             title="It worked well that..." 
             comments={reduxComments.filter(c => c.column === 'workedWell')}
@@ -121,9 +126,10 @@ const RetroToolPage = ({ params }) => {
             isVisible={step > 1}
             sessionId={sessionId}
             step={step}
+            colorClass={styles.orangeCard} 
           />
         </Col>
-        <Col xs={24} sm={12} md={6} className={styles.column}>
+        <Col xs={24} sm={12} md={6}>
           <Column 
             title="We could improve..." 
             comments={reduxComments.filter(c => c.column === 'couldImprove')}
@@ -135,9 +141,10 @@ const RetroToolPage = ({ params }) => {
             isVisible={step > 1}
             sessionId={sessionId}
             step={step}
+            colorClass={styles.orangeCard} 
           />
         </Col>
-        <Col xs={24} sm={12} md={6} className={styles.column}>
+        <Col xs={24} sm={12} md={6}>
           <Column 
             title="I want to ask about..." 
             comments={reduxComments.filter(c => c.column === 'askAbout')}
@@ -149,6 +156,7 @@ const RetroToolPage = ({ params }) => {
             isVisible={step > 1}
             sessionId={sessionId}
             step={step}
+            colorClass={styles.orangeCard} 
           />
         </Col>
         {step >= 3 && (
@@ -157,9 +165,7 @@ const RetroToolPage = ({ params }) => {
           </Col>
         )}
       </Row>
-      {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }}>Next Step</Button>}
-      {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}
-      {step === 4 && <Button onClick={resetVotes} style={{ marginTop: '20px' }}>Reset Votes</Button>}
+      
     </div>
   );
 };

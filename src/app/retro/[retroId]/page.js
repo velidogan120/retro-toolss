@@ -108,7 +108,7 @@ const RetroToolPage = ({ params }) => {
       <Header className={styles.header} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", }}>
         <Image src='/assets/img/logo.jpg' className={styles.logo} width={75}></Image>
         <div className="title">RetroMap</div>      
-        <div className={styles.topBar}>
+        <div>
           {step < 4 && <Button onClick={nextStep} style={{ marginTop: '20px' }} className={styles.nextButton}>Next Step</Button>}
           {step === 4 && <Button onClick={exportPDF} style={{ marginTop: '20px' }}>Export as PDF</Button>}
         </div>
